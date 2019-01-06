@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 class TodoList extends Component{
+
+
+    componentDidMount(){
+        console.log('Props: ', this.props)
+        // this.props.dispatch({ type: 'READ_DATA' })
+    }
 
     render(){
 
@@ -18,4 +25,11 @@ class TodoList extends Component{
     }
 }
 
-export default TodoList
+function mapStateToProps(state){
+    console.log('State: ', state)
+    return {
+        todos: state.todos
+    }
+}
+
+export default connect(mapStateToProps)(TodoList)
