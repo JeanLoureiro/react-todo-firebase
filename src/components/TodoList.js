@@ -3,12 +3,6 @@ import { connect } from 'react-redux'
 
 class TodoList extends Component{
 
-
-    componentDidMount(){
-        console.log('Props: ', this.props)
-        // this.props.dispatch({ type: 'READ_DATA' })
-    }
-
     render(){
 
         const { todos } = this.props
@@ -26,7 +20,7 @@ class TodoList extends Component{
 }
 
 function mapStateToProps(state){
-    console.log('State: ', state)
+    //console.log('State: ', state)
     return {
         todos: state.todos
     }

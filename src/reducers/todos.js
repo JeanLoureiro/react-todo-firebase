@@ -5,17 +5,24 @@ const initialState = {
 }
 
 export default function reducer( state = initialState, action ){
+    console.log('state', state);
+    console.log('action', action);
     switch (action.type) {
         case ADD_TODO:
             return {
-                ...state
-
+                ...state,
+                todos: state.todos.concat({
+                    id: action.payload.id,
+                    title: action.payload.todo,
+                    completed: false
+                })
+                
             }
         
-        case READ_DATA:
-            return {
-                todo: initialState.todos
-            }
+        // case READ_DATA:
+        //     return {
+        //         todo: initialState.todos
+        //     }
     
         default:
             return state
