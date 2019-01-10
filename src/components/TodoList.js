@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { toggleTodo } from '../actions/todo';
 
 class TodoList extends Component{
+
+    handleToggleTodo = (id) => {
+        this.props.dispatch(toggleTodo(id))
+    }
 
     render(){
 
@@ -11,7 +16,14 @@ class TodoList extends Component{
             <ul>
                 {
                     todos.map( (todo) => (
-                        <li key={todo.id}>{todo.title}</li>
+                        <li 
+                            key={todo.id}
+                            id={todo.id}
+                            onClick={() => this.handleToggleTodo(todo.id)}
+                            style={{textDecoration: todo.completed ? 'line-through' : 'none' }}
+                        >
+                            {todo.title}
+                        </li>
                     ))
                 }
             </ul>
@@ -20,7 +32,6 @@ class TodoList extends Component{
 }
 
 function mapStateToProps(state){
-    //console.log('State: ', state)
     return {
         todos: state.todos
     }

@@ -1,12 +1,12 @@
-import { ADD_TODO, DELETE_TODO, TOGGLE_TODO, READ_DATA } from "../actions/todo"
+import { ADD_TODO, TOGGLE_TODO } from "../actions/todo"
 
 const initialState = {
     todos: require('../api')
 }
 
 export default function reducer( state = initialState, action ){
-    console.log('state', state);
-    console.log('action', action);
+    console.log('Store state', state);
+    console.log('Store action', action);
     switch (action.type) {
         case ADD_TODO:
             return {
@@ -18,11 +18,16 @@ export default function reducer( state = initialState, action ){
                 })
                 
             }
-        
-        // case READ_DATA:
-        //     return {
-        //         todo: initialState.todos
-        //     }
+
+        case TOGGLE_TODO:
+
+            return {
+                ...state,
+                todos: state.todos.map(
+                    todo =>
+                    todo.id === action.payload.id ? { ...todo, completed: !todo.completed } : todo
+                )
+            }
     
         default:
             return state
