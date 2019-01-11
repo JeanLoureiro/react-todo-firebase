@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { toggleTodo } from '../actions/todo';
+import { todosFiltered } from "../actions/filters";
 
 class TodoList extends Component{
 
@@ -10,12 +11,14 @@ class TodoList extends Component{
 
     render(){
 
-        const { todos } = this.props
+        const { todos, filters } = this.props
+
+        const filtered = todosFiltered(todos, filters)
 
         return(
             <ul>
                 {
-                    todos.map( (todo) => (
+                    filtered.map( (todo) => (
                         <li 
                             key={todo.id}
                             id={todo.id}
@@ -33,7 +36,8 @@ class TodoList extends Component{
 
 function mapStateToProps(state){
     return {
-        todos: state.todos
+        todos: state.todos,
+        filters: state.filters
     }
 }
 
