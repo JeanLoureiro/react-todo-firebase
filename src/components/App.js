@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LoadingBar from 'react-redux-loading'
 import '../App.css'
 import Header from './Header'
 import TodoList from './TodoList'
@@ -9,6 +10,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <LoadingBar />
                 <Header />
                 <header className="App-header">
                     <AddTodo />

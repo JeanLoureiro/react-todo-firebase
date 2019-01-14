@@ -1,4 +1,6 @@
 import { database } from '../api/configFirebase'
+import { showLoading, hideLoading } from 'react-redux-loading'
+
 
 export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
@@ -13,11 +15,14 @@ const addCurrentTodo = (todo, id) =>  ({
 
 export function addTodo(todo){
     return dispatch => {
-        database.collection('todos').add({
+        dispatch( showLoading() )
+
+        return database.collection('todos').add({
             title: todo,
             completed: false
-        })
+            })
             .then( ( ref ) => dispatch( addCurrentTodo(todo, ref.id) ) )
+            .then( () => dispatch( hideLoading () ) )
     }
 }
 
@@ -48,7 +53,9 @@ export function fetchTodos(){
     return dispatch => {
         const todos = []
 
-        database.collection('todos').get()
+        dispatch( showLoading() )
+
+        return database.collection('todos').get()
         .then((snapshot) => {
             
             snapshot.forEach( (todo) => {
@@ -64,6 +71,7 @@ export function fetchTodos(){
 
         })
         .then( () =>  dispatch( getTodos(todos) ))
+        .then( () => dispatch( hideLoading () ) )
         .catch( (err) => console.log('Could not get collection. Error: ', err) )
     }
 }
