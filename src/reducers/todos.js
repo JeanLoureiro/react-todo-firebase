@@ -1,12 +1,15 @@
-import { ADD_TODO, TOGGLE_TODO } from "../actions/todo"
+import { ADD_TODO, TOGGLE_TODO, FETCH_TODOS } from "../actions/todo"
 
-const initialState = require('../api')
+// const initialState = require('../api')
 
-export default function todos( state = initialState, action ){
-
-    // console.log('state: ', state)
+export default function todos( state = [], action ){
 
     switch (action.type) {
+        case FETCH_TODOS:
+            console.log('Reducer Action: ', action)
+            console.log('Reducer State: ', state)
+            return  action.todos 
+            
         case ADD_TODO:
             return [
                 ...state,

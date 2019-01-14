@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { toggleTodo } from '../actions/todo';
+import { toggleTodo, fetchTodos } from '../actions/todo';
 import { todosFiltered } from "../actions/filters";
 
 class TodoList extends Component{
+
+
+    componentWillMount(){
+        this.props.dispatch(fetchTodos())
+    }
 
     handleToggleTodo = (id) => {
         this.props.dispatch(toggleTodo(id))
@@ -35,10 +40,12 @@ class TodoList extends Component{
 }
 
 function mapStateToProps(state){
+    console.log("TODO LIST STATE: ", state.todos)
     return {
         todos: state.todos,
         filters: state.filters
     }
 }
+
 
 export default connect(mapStateToProps)(TodoList)
