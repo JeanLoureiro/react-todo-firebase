@@ -5,7 +5,6 @@ import { todosFiltered } from "../actions/filters";
 
 class TodoList extends Component{
 
-
     componentWillMount(){
         this.props.dispatch(fetchTodos())
     }
@@ -23,14 +22,15 @@ class TodoList extends Component{
         return(
             <ul>
                 {
-                    filtered.map( (todo) => (
+                    // filtered.map( (todo) => (
+                    Object.keys(filtered).map( ( todo ) => (    
                         <li 
-                            key={todo.id}
-                            id={todo.id}
-                            onClick={() => this.handleToggleTodo(todo.id)}
-                            style={{textDecoration: todo.completed ? 'line-through' : 'none' }}
+                            key={todo}
+                            id={todo}
+                            onClick={() => this.handleToggleTodo(todo)}
+                            style={{textDecoration: filtered[todo].completed ? 'line-through' : 'none' }}
                         >
-                            {todo.title}
+                            {filtered[todo].title}
                         </li>
                     ))
                 }
@@ -39,7 +39,7 @@ class TodoList extends Component{
     }
 }
 
-function mapStateToProps(state){
+const mapStateToProps = (state) => {
     console.log("TODO LIST STATE: ", state.todos)
     return {
         todos: state.todos,

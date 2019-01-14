@@ -9,11 +9,26 @@ export function todosFiltered(todos, filter) {
             return todos
         
         case SHOW_COMPLETED :
-            return todos.filter( todo => todo.completed )
+            var ids = []
+            
+            return Object.keys(todos)
+                .filter( id => todos[id].completed ? ids = id : null )
+                .reduce( (out, key) => {
+                    out[key] = todos[key]
+                    
+                    return out
+                }, {} )
 
         case SHOW_INCOMPLETED:
-            return todos.filter( todo => !todo.completed )    
-    
+            return Object.keys(todos)
+                .filter( id => !todos[id].completed ? ids = id : null )
+                .reduce( (out, key) => {
+                    out[key] = todos[key]
+                    
+                    return out
+                }, {} )
+
+
         default:
             return todos;
     }

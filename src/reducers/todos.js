@@ -6,9 +6,11 @@ export default function todos( state = [], action ){
 
     switch (action.type) {
         case FETCH_TODOS:
-            console.log('Reducer Action: ', action)
-            console.log('Reducer State: ', state)
-            return  action.todos 
+            
+            return{
+                ...state,
+                ...action.todos
+            }
             
         case ADD_TODO:
             return [
@@ -22,10 +24,18 @@ export default function todos( state = [], action ){
             ]
 
         case TOGGLE_TODO:
-            return state.map(
-                    todo =>
-                    todo.id === action.payload.id ? { ...todo, completed: !todo.completed } : todo
+            var todos = {}
+            Object.keys(state).map(
+                    ( todo ) => todo === action.id 
+                    ? todos[todo] = { 
+                        ...state[todo],
+                        completed: !state[todo].completed 
+                    } 
+                    : todos[todo] = state[todo]
                 )
+            
+            return todos
+                
             
         default:
             return state

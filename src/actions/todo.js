@@ -19,14 +19,12 @@ export function addTodo(todo){
 export function toggleTodo(id){
     return{
         type: TOGGLE_TODO,
-        payload: {
-            id: id
-        }
+        id
     }
 }
 
 
-const getTodos = (todos) => ({
+const getTodos = (todos) =>  ({
     type: FETCH_TODOS, 
     todos
 })
@@ -38,7 +36,6 @@ export function fetchTodos(){
         database.collection('todos').get()
         .then((snapshot) => {
             
-
             snapshot.forEach( (todo) => {
                 
                 var todoItem = {
@@ -50,10 +47,8 @@ export function fetchTodos(){
 
             })
 
-            console.log('Fetch Todos from Firebase ', todos)
-            
         })
-        .then( () => console.log('then: ', todos) || dispatch( getTodos(todos) ))
+        .then( () =>  dispatch( getTodos(todos) ))
         .catch( (err) => console.log('Could not get collection. Error: ', err) )
     }
 }
