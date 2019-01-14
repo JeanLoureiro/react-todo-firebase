@@ -4,15 +4,27 @@ export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 export const FETCH_TODOS = 'FETCH_TODOS'
 
-let currentId = 2
+// export function addTodo(todo){
+//     return{
+//         type: ADD_TODO,
+//         todo    
+//     }
+// }
+
+const addCurrentTodo = (todo, id) =>  ({
+    type: ADD_TODO, 
+    todo,
+    id
+})
+
 
 export function addTodo(todo){
-    return{
-        type: ADD_TODO,
-        payload: {
-            id: ++currentId,
-            todo
-        }
+    return dispatch => {
+        database.collection('todos').add({
+            title: todo,
+            completed: false
+        })
+            .then( ( ref ) => dispatch( addCurrentTodo(todo, ref.id) ) )
     }
 }
 

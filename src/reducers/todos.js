@@ -1,8 +1,6 @@
 import { ADD_TODO, TOGGLE_TODO, FETCH_TODOS } from "../actions/todo"
 
-// const initialState = require('../api')
-
-export default function todos( state = [], action ){
+export default function todos( state = {}, action ){
 
     switch (action.type) {
         case FETCH_TODOS:
@@ -13,15 +11,18 @@ export default function todos( state = [], action ){
             }
             
         case ADD_TODO:
-            return [
+            console.log(action.id)
+
+            return {
                 ...state,
-                {
-                    id: action.payload.id,
-                    title: action.payload.todo,
+                [action.id]: {
+                    title: action.todo,
                     completed: false
                 }
-                
-            ]
+            }
+        
+            
+            
 
         case TOGGLE_TODO:
             var todos = {}
