@@ -9,8 +9,8 @@ class TodoList extends Component{
         this.props.fetchTodos()
     }
 
-    handleToggleTodo = (id) => {
-        this.props.toggleTodo(id)
+    handleToggleTodo = (id, completed) => {
+        this.props.toggleTodo(id, completed)
     }
 
     render(){
@@ -22,14 +22,14 @@ class TodoList extends Component{
         return(
             <ul>
                 {
-                    Object.keys(filtered).map( ( todo ) => (    
+                    Object.keys(filtered).map( ( id ) => (    
                         <li 
-                            key={todo}
-                            id={todo}
-                            onClick={() => this.handleToggleTodo(todo)}
-                            style={{textDecoration: filtered[todo].completed ? 'line-through' : 'none' }}
+                            key={id}
+                            id={id}
+                            onClick={() => this.handleToggleTodo( id, filtered[id].completed )}
+                            style={{textDecoration: filtered[id].completed ? 'line-through' : 'none' }}
                         >
-                            {filtered[todo].title}
+                            {filtered[id].title}
                         </li>
                     ))
                 }
@@ -50,8 +50,8 @@ const mapDispatchToProps = ( dispatch ) =>{
         fetchTodos: () => {
             dispatch( fetchTodos() )
         },
-        toggleTodo : (id) => {
-            dispatch ( toggleTodo(id) )
+        toggleTodo : (id, completed) => {
+            dispatch ( toggleTodo(id, completed) )
         }
     }
 }

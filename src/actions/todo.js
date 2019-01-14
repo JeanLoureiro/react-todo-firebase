@@ -21,10 +21,20 @@ export function addTodo(todo){
     }
 }
 
-export function toggleTodo(id){
+export function toggleCurrentTodo(id){
     return{
         type: TOGGLE_TODO,
         id
+    }
+}
+
+export function toggleTodo( id, completed ){
+
+    return dispatch => {
+        database.collection('todos').doc(id).update({
+            completed: !completed
+        })
+        .then( () => dispatch( toggleCurrentTodo( id )) )
     }
 }
 
