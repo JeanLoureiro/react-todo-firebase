@@ -3,16 +3,13 @@ export const SHOW_COMPLETED = 'SHOW_COMPLETED'
 export const SHOW_INCOMPLETED = 'SHOW_INCOMPLETED'
 
 export function todosFiltered(todos, filter) {
-
     switch (filter) {
         case SHOW_ALL:
             return todos
         
         case SHOW_COMPLETED :
-            var ids = []
-            
             return Object.keys(todos)
-                .filter( id => todos[id].completed ? ids = id : null )
+                .filter( id => todos[id].completed )
                 .reduce( (out, key) => {
                     out[key] = todos[key]
                     
@@ -21,7 +18,7 @@ export function todosFiltered(todos, filter) {
 
         case SHOW_INCOMPLETED:
             return Object.keys(todos)
-                .filter( id => !todos[id].completed ? ids = id : null )
+                .filter( id => !todos[id].completed )
                 .reduce( (out, key) => {
                     out[key] = todos[key]
                     

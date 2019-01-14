@@ -6,11 +6,11 @@ import { todosFiltered } from "../actions/filters";
 class TodoList extends Component{
 
     componentWillMount(){
-        this.props.dispatch(fetchTodos())
+        this.props.fetchTodos()
     }
 
     handleToggleTodo = (id) => {
-        this.props.dispatch(toggleTodo(id))
+        this.props.toggleTodo(id)
     }
 
     render(){
@@ -22,7 +22,6 @@ class TodoList extends Component{
         return(
             <ul>
                 {
-                    // filtered.map( (todo) => (
                     Object.keys(filtered).map( ( todo ) => (    
                         <li 
                             key={todo}
@@ -40,12 +39,22 @@ class TodoList extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("TODO LIST STATE: ", state.todos)
     return {
         todos: state.todos,
         filters: state.filters
     }
 }
 
+const mapDispatchToProps = ( dispatch ) =>{
+    return {
+        fetchTodos: () => {
+            dispatch( fetchTodos() )
+        },
+        toggleTodo : (id) => {
+            dispatch ( toggleTodo(id) )
+        }
+    }
+}
 
-export default connect(mapStateToProps)(TodoList)
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
