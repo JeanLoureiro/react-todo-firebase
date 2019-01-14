@@ -1,5 +1,0 @@
-[
-    {"id": 0, "title" : "Take bin out", "completed" : false },
-    {"id": 1, "title" : "Study ReactJS", "completed" : false },
-    {"id": 2, "title" : "Go to the gym", "completed" : true }
-]
